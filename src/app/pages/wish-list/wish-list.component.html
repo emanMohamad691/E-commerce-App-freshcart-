@@ -1,0 +1,39 @@
+@if(products?.length){
+<section class="lg:w-[70%] mx-auto bg-gray-50 p-5 rounded shadow-lg px-5">
+  <h1 class="header-style">wish list</h1>
+  @for (product of products; track product.id) {
+  <div class="md:grid grid-cols-[10%_minmax(0,1fr)] mb-2 border-b-2 gap-x-2">
+    <div [routerLink]="['/details', product.id]" class="cursor-pointer">
+      <img class="w-full" [src]="product.imageCover" [alt]="product.title" />
+    </div>
+
+    <div class="md:flex items-center justify-between">
+      <div class="capitalize">
+        <h3 class="text-xl w-[70%]">
+          {{ product.title.split(" ", 5).join("") }}....
+        </h3>
+        <h4 class="text-green-600 text-lg">
+          price :{{ product.price | currency }}
+        </h4>
+        <button
+          (click)="removeItem(product.id)"
+          class="text-xl mb-3 capitalize"
+        >
+          <i class="fa-solid fa-trash text-green-600 text-xl me-2"></i>remove
+        </button>
+      </div>
+
+      <button (click)="addToCart(product.id)" class="capitalize btn-form">
+        add to cart
+      </button>
+    </div>
+  </div>
+  }
+</section>
+} @else {
+<section class="w-[70%] mx-auto bg-gray-50 p-5 rounded shadow-lg px-5">
+  <h1 class="text-3xl text-center text-green-600 font-bold capitalize">
+    No products in wish list
+  </h1>
+</section>
+}

@@ -1,0 +1,18 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BrandsService {
+
+  specificBrand:string = '';
+
+  constructor(private httpClient:HttpClient) { }
+
+  getAllBrands():Observable<any>{
+return this.httpClient.get(`${environment.api_url}/brands`)
+  }
+}

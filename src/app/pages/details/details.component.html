@@ -1,0 +1,38 @@
+@if(productData){
+<section class="md:grid grid-cols-[30%_minmax(0,1fr)] items-center gap-10">
+  <div>
+    <owl-carousel-o [options]="customOptions">
+      @for (image of productData.images; track productData.id) {
+      <ng-template carouselSlide>
+        <img class="w-full" [src]="image" alt="image" />
+      </ng-template>
+      }
+    </owl-carousel-o>
+    <!-- <img class="w-full" [src]="productData.imageCover" alt="" /> -->
+  </div>
+  <div>
+    <h2 class="text-2xl mb-4">
+      {{ productData.title }}
+    </h2>
+    <p class="text-lg text-gray-500">
+      {{ productData.description }}
+    </p>
+    <p>{{ productData.category.name }}</p>
+
+    <div class="footer flex justify-between items-center mb-4">
+      <span> {{ productData.price | currency }} </span>
+      <div class="flex items-center">
+        <i class="fa-solid fa-star text-yellow-300"></i>
+        <span class="text-gray-500">{{ productData.ratingsAverage }}</span>
+      </div>
+    </div>
+
+    <button
+      (click)="addToCart(productData.id)"
+      class="bg-green-600 text-white px-10 py-2 border rounded w-[100%] mx-auto block capitalize"
+    >
+      +add to cart
+    </button>
+  </div>
+</section>
+}

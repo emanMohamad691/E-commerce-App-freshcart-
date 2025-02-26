@@ -1,0 +1,60 @@
+@if(specificCategoryProducts?.length) {
+<section>
+  <h2 class="header-style my-24">our products</h2>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    @for (product of specificCategoryProducts ;track product.id){
+    <div
+      class="cart-style flex flex-col border rounded-md shadow-lg overflow-hidden cursor-pointer"
+    >
+      <div [routerLink]="['/details', product.id]">
+        <div class="card-img mb-2">
+          <img
+            [src]="product.imageCover"
+            [alt]="product.title"
+            class="w-full h-[250px] object-contain"
+          />
+        </div>
+        <div class="card-body px-2 py-4">
+          <h3 class="text-green-500 text-sm">
+            {{ product.category.name }}
+          </h3>
+          <div class="flex items-center justify-between">
+            <h4 class="font-medium">
+              {{ product.title.split(" ", 2).join("") }}
+            </h4>
+            <i
+              (click)="addToWishList($event, product.id)"
+              [class]="
+                IsProductInWishlist(product.id) ? 'fa-solid' : 'fa-regular'
+              "
+              class="fa-heart text-2xl text-green-600"
+            ></i>
+          </div>
+          <div class="footer flex justify-between items-center">
+            <span> {{ product.price | currency }}</span>
+            <div class="flex items-center">
+              <i class="fa-solid fa-star text-yellow-300"></i>
+              <span class="text-gray-500">{{ product.ratingsAverage }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        (click)="addToCart(product.id)"
+        class="bg-green-600 text-white px-10 py-2 border rounded w-[90%] mx-auto block capitalize"
+      >
+        add to cart
+      </button>
+    </div>
+    }
+  </div>
+</section>
+} @else {
+<section class="md:w-[70%] mx-auto bg-gray-50 p-5 rounded shadow-lg px-5">
+  <h1 class="text-3xl text-center text-green-600 font-bold capitalize">
+    No products available yet.
+  </h1>
+</section>
+}

@@ -1,0 +1,61 @@
+@if(allLoggedProduct.totalCartPrice){
+<section class="lg:w-[70%] mx-auto bg-gray-50 p-5 rounded shadow-lg px-5">
+  <h1 class="header-style">shop cart</h1>
+  <span class="mb-3 block text-xl text-green-600 capitalize border-b-2"
+    >total card price : {{ allLoggedProduct.totalCartPrice | currency }}</span
+  >
+
+  @for (pro of allLoggedProduct.products; track pro.product.id) {
+  <div class="md:grid grid-cols-[10%_minmax(0,1fr)] mb-2 border-b-2 gap-x-2">
+    <div>
+      <img
+        class="w-full"
+        [src]="pro.product.imageCover"
+        [alt]="pro.product.title"
+      />
+    </div>
+
+    <div class="md:flex items-center justify-between">
+      <div class="capitalize">
+        <h3 class="text-xl">{{ pro.product.title }}</h3>
+        <h4 class="text-green-600 text-lg">
+          price : {{ pro.price | currency }}
+        </h4>
+        <button
+          (click)="removeItem(pro.product.id)"
+          class="text-xl mb-3 capitalize"
+        >
+          <i class="fa-solid fa-trash text-green-600 text-xl me-2"></i>remove
+        </button>
+      </div>
+
+      <div class="flex items-center gap-x-2">
+        <button (click)="updateCount(pro.product.id, pro.count + 1)">
+          <i class="fa-regular fa-square-plus text-green-600 text-2xl"></i>
+        </button>
+        <p class="text-xl">{{ pro.count }}</p>
+        <button (click)="updateCount(pro.product.id, pro.count - 1)">
+          <i class="fa-regular fa-square-minus text-green-600 text-2xl"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <div class="flex justify-between items-center">
+    <button routerLink="/checkout" class="btn-form">payment</button>
+    <button
+      (click)="clearCart()"
+      class="btn-form bg-green-700 hover:bg-green-600 hover:text-black text-white"
+    >
+      clear cart
+    </button>
+  </div>
+</section>
+} @else {
+<section class="md:w-[70%] mx-auto bg-gray-50 p-5 rounded shadow-lg px-5">
+  <h1 class="text-3xl text-center text-green-600 font-bold capitalize">
+    No products in cart
+  </h1>
+</section>
+}

@@ -1,0 +1,37 @@
+<section>
+  <h2 class="header-style">your orders</h2>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    @for (order of userOrders ; track order.id) { @for(cartItem of
+    order.cartItems; track cartItem._id){
+    <div
+      class="card flex flex-col border rounded-md shadow-lg overflow-hidden hover:scale-[1.1] transition-all cursor-pointer"
+    >
+      <div [routerLink]="['/details', cartItem.product.id]">
+        <div class="card-img mb-2">
+          <img
+            [src]="cartItem.product.imageCover"
+            [alt]="cartItem.product.title"
+            class="w-full h-[250px] object-contain"
+          />
+        </div>
+        <div class="card-body px-2 py-4">
+          <h3 class="text-green-500 text-sm">
+            {{ cartItem.product.category.name }}
+          </h3>
+          <h4 class="font-medium">
+            {{ cartItem.product.title.split(" ", 2).join("") }}
+          </h4>
+          <!-- <div class="footer flex justify-between items-center">
+                      <span> {{ product.price | currency }}</span>
+                      <div class="flex items-center">
+                        <i class="fa-solid fa-star text-yellow-300"></i>
+                        <span class="text-gray-500">{{ product.ratingsAverage }}</span>
+                      </div>
+                    </div> -->
+        </div>
+      </div>
+    </div>
+    } }
+  </div>
+</section>
